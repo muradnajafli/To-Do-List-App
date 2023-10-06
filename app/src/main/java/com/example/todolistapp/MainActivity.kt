@@ -1,23 +1,20 @@
 package com.example.todolistapp
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolistapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var myDataBaseHelper: MyDataBaseHelper
-    private lateinit var toDoList: ArrayList<String>
+    private lateinit var myDatabaseManager: DatabaseManager
+    private lateinit var toDoList: ArrayList<ToDoList>
     private lateinit var toDoListAdapter: ToDoListAdapter
-    private lateinit var sharedPreferences: SharedPreferences
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,11 +22,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        myDatabaseManager = DatabaseManager(this)
 
-        sharedPreferences = getSharedPreferences("ToDoList", Context.MODE_PRIVATE)
-
-
-        myDataBaseHelper = MyDataBaseHelper(this)
         toDoList = ArrayList()
         toDoListAdapter = ToDoListAdapter(this, toDoList)
 
@@ -41,48 +35,52 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.addButton.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Add ToDo List")
-
-            val input = EditText(this)
-            builder.setView(input)
-
-            builder.setPositiveButton("ADD") { _, _ ->
-                val enteredText = input.text.toString()
-                val editor = sharedPreferences.edit()
-                editor.putString("list_${toDoList.size}", enteredText)
-                editor.apply()
-                toDoListAdapter.notifyDataSetChanged()
-
-                val dbHelper = MyDataBaseHelper(this)
-                dbHelper.addToDoList(enteredText)
-                toDoList.add(enteredText)
-            }
-            builder.setNegativeButton("CANCEL") { dialog, _ ->
-                dialog.cancel()
-            }
-
-            val dialog = builder.create()
-            dialog.show()
+            showAddListDialog()
         }
 
-        loadTasksFromSharedPreferences()
-
-
+        loadListsFromDatabase()
     }
 
-    private fun loadTasksFromSharedPreferences() {
-        toDoList.clear()
-        val size = sharedPreferences.all.size
+    private fun showAddListDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Add ToDo List")
 
-        for (i in 0 until size) {
-            val task = sharedPreferences.getString("list_$i", "")
-            if (!task.isNullOrEmpty()) {
-                toDoList.add(task)
+        val input = EditText(this)
+        builder.setView(input)
+
+        builder.setPositiveButton("ADD") { _, _ ->
+            val enteredText = input.text.toString()
+
+            if (enteredText.isNotEmpty()) {
+                val newList = ToDoList(0, enteredText) // Yeni ToDoList oluştur
+                val listId = myDatabaseManager.addTodoList(newList)
+                myDatabaseManager.close()
+
+                if (listId != -1L) {
+                    Toast.makeText(this, "List Added to DATABASE", Toast.LENGTH_SHORT).show()
+                    newList.id = listId
+                    toDoList.add(newList)
+                    toDoListAdapter.notifyItemInserted(toDoList.size - 1)
+                }
             }
         }
+
+        builder.setNegativeButton("CANCEL") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun loadListsFromDatabase() {
+        toDoList.clear()
+        val lists = myDatabaseManager.getAllToDoLists()
+        toDoList.addAll(lists)
         toDoListAdapter.notifyDataSetChanged()
     }
-
-
 }
+
+
+

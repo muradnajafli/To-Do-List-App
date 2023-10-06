@@ -10,10 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolistapp.databinding.ListLayoutBinding
 
-class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<String>):
+class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<ToDoList>) :
     RecyclerView.Adapter<ToDoListAdapter.ListViewHolder>() {
-
-    inner class ListViewHolder(var binding: ListLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ListViewHolder(var binding: ListLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             val dropDownMenu = PopupMenu(context, binding.listOptionsButton)
@@ -37,9 +36,9 @@ class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<Stri
                 dropDownMenu.show()
             }
             binding.cardView.setOnClickListener {
-                    val intent = Intent(context, AddActivity::class.java)
-                    intent.putExtra("listName", toDoList[adapterPosition])
-                    context.startActivity(intent)
+                val intent = Intent(context, AddActivity::class.java)
+                intent.putExtra("listId", toDoList[adapterPosition].id)
+                context.startActivity(intent)
             }
         }
     }
@@ -52,14 +51,14 @@ class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<Stri
 
         builder.setPositiveButton("UPDATE") { _, _ ->
             val updatedText = input.text.toString()
-            toDoList[position] = updatedText
+            val listId = toDoList[position].id
+
+            // Update the list title in the database
+            val myDatabaseManager = DatabaseManager(context)
+            myDatabaseManager.updateList(listId, updatedText)
+
+            toDoList[position].title = updatedText
             notifyItemChanged(position)
-
-            val sharedPreferences = context.getSharedPreferences("ToDoList", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putString("list_$position", updatedText)
-            editor.apply()
-
         }
         builder.setNegativeButton("CANCEL") { dialog, _ ->
             dialog.cancel()
@@ -74,19 +73,17 @@ class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<Stri
         builder.setTitle("Delete ToDo")
 
         builder.setPositiveButton("DELETE") { _, _ ->
+            val listId = toDoList[position].id
+
+            val myDatabaseManager = DatabaseManager(context)
+            myDatabaseManager.deleteListWithTasks(listId)
+
             toDoList.removeAt(position)
             notifyItemRemoved(position)
-
-            val sharedPreferences = context.getSharedPreferences("ToDoList", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.remove("list_$position")
-            editor.apply()
         }
-
         builder.setNegativeButton("CANCEL") { dialog, _ ->
             dialog.cancel()
         }
-
         val dialog = builder.create()
         dialog.show()
     }
@@ -99,9 +96,8 @@ class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<Stri
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val task = toDoList[position]
         val myHolder = holder.binding
-        myHolder.toDoListTv.text = task
+        myHolder.toDoListTv.text = task.title
     }
 
     override fun getItemCount() = toDoList.size
-
 }

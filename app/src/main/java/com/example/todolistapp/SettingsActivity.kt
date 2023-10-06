@@ -2,11 +2,10 @@ package com.example.todolistapp
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.RadioButton
 import com.example.todolistapp.databinding.ActivitySettingsBinding
-import com.example.todolistapp.databinding.TaskLayoutBinding
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
@@ -20,35 +19,34 @@ class SettingsActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
-        // Completed Renk Seçimi
-        binding.blueColorButton.setOnClickListener {
-            editor.putInt("completedColor", R.color.blue)
+
+        binding.completedColorRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.blueRadioButton -> {
+                    editor.putInt("completedColor", R.color.blue)
+                }
+                R.id.yellowRadioButton -> {
+                    editor.putInt("completedColor", R.color.yellow)
+                }
+                R.id.greenRadioButton -> {
+                    editor.putInt("completedColor", R.color.green)
+                }
+            }
             editor.apply()
         }
 
-        binding.yellowColorButton.setOnClickListener {
-            editor.putInt("completedColor", R.color.yellow)
-            editor.apply()
-        }
-
-        binding.greenColorButton.setOnClickListener {
-            editor.putInt("completedColor", R.color.green)
-            editor.apply()
-        }
-
-        // Not Completed Renk Seçimi
-        binding.brownColorButton.setOnClickListener {
-            editor.putInt("notCompletedColor", R.color.brown)
-            editor.apply()
-        }
-
-        binding.pinkColorButton.setOnClickListener {
-            editor.putInt("notCompletedColor", R.color.pink)
-            editor.apply()
-        }
-
-        binding.violetColorButton.setOnClickListener {
-            editor.putInt("notCompletedColor", R.color.violet)
+        binding.notCompletedColorRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.brownRadioButton -> {
+                    editor.putInt("notCompletedColor", R.color.brown)
+                }
+                R.id.pinkRadioButton -> {
+                    editor.putInt("notCompletedColor", R.color.pink)
+                }
+                R.id.violetRadioButton -> {
+                    editor.putInt("notCompletedColor", R.color.violet)
+                }
+            }
             editor.apply()
         }
 
@@ -62,13 +60,13 @@ class SettingsActivity : AppCompatActivity() {
         if (completedColorResId != -1) {
             when (completedColorResId) {
                 R.color.blue -> {
-                    binding.blueColorButton.isChecked = true
+                    findViewById<RadioButton>(R.id.blueRadioButton).isChecked = true
                 }
                 R.color.yellow -> {
-                    binding.yellowColorButton.isChecked = true
+                    findViewById<RadioButton>(R.id.yellowRadioButton).isChecked = true
                 }
                 R.color.green -> {
-                    binding.greenColorButton.isChecked = true
+                    findViewById<RadioButton>(R.id.greenRadioButton).isChecked = true
                 }
             }
         }
@@ -76,13 +74,13 @@ class SettingsActivity : AppCompatActivity() {
         if (notCompletedColorResId != -1) {
             when (notCompletedColorResId) {
                 R.color.brown -> {
-                    binding.brownColorButton.isChecked = true
+                    findViewById<RadioButton>(R.id.brownRadioButton).isChecked = true
                 }
                 R.color.pink -> {
-                    binding.pinkColorButton.isChecked = true
+                    findViewById<RadioButton>(R.id.pinkRadioButton).isChecked = true
                 }
                 R.color.violet -> {
-                    binding.violetColorButton.isChecked = true
+                    findViewById<RadioButton>(R.id.violetRadioButton).isChecked = true
                 }
             }
         }

@@ -1,8 +1,6 @@
 package com.example.todolistapp
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -13,14 +11,11 @@ import com.example.todolistapp.databinding.ActivityAddBinding
 
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
-    private lateinit var myDataBaseHelper: MyDataBaseHelper
-    private lateinit var taskList: ArrayList<String>
+    private lateinit var myDatabaseManager: DatabaseManager // Veritabanı yöneticisi
+    private lateinit var taskList: ArrayList<Task>
     private lateinit var taskListAdapter: TaskAdapter
-    private lateinit var sharedPreferences: SharedPreferences
-    private var listName: String? = null
+    private var listId: Long = -1
 
-
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
@@ -29,12 +24,11 @@ class AddActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        sharedPreferences = getSharedPreferences("ToDoTask", Context.MODE_PRIVATE)
-        listName = intent.getStringExtra("listName")
+        listId = intent.getLongExtra("listId", -1)
+        myDatabaseManager = DatabaseManager(this)
 
-        myDataBaseHelper = MyDataBaseHelper(this)
         taskList = ArrayList()
-        taskListAdapter = TaskAdapter(this, taskList, listName)
+        taskListAdapter = TaskAdapter(this, taskList, listId)
 
         binding.taskRecyclerView.adapter = taskListAdapter
         binding.taskRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -47,17 +41,9 @@ class AddActivity : AppCompatActivity() {
             builder.setView(input)
 
             builder.setPositiveButton("ADD") { _, _ ->
-                val enteredText = input.text.toString()
-                val editor = sharedPreferences.edit()
-                editor.putString("task_${listName}_${taskList.size}", enteredText)
-                editor.apply()
-                taskListAdapter.notifyDataSetChanged()
-
-                val dbHelper = MyDataBaseHelper(this)
-                dbHelper.addToDoTask(enteredText)
-                taskList.add(enteredText)
-
+                showAddTaskDialog()
             }
+
             builder.setNegativeButton("CANCEL") { dialog, _ ->
                 dialog.cancel()
             }
@@ -65,32 +51,54 @@ class AddActivity : AppCompatActivity() {
             val dialog = builder.create()
             dialog.show()
         }
-        loadTasksFromSharedPreferences()
 
+        loadTasksFromDatabase()
     }
-    private fun loadTasksFromSharedPreferences() {
-        taskList.clear()
 
-        val allTasks = sharedPreferences.all
-        val taskKeys = allTasks.keys.filter { it.startsWith("task_${listName}_") }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun showAddTaskDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Add ToDo Item")
 
-        val sortedTaskKeys = taskKeys.sortedBy { it.substringAfterLast("_").toInt() }
+        val input = EditText(this)
+        builder.setView(input)
 
-        for (key in sortedTaskKeys) {
-            val task = allTasks[key].toString()
-            if (task.isNotEmpty()) {
-                taskList.add(task)
+        builder.setPositiveButton("ADD") { _, _ ->
+            val enteredText = input.text.toString()
+
+            val taskId = myDatabaseManager.addTask(enteredText, 0, listId)
+
+            if (taskId != -1L) {
+                taskList.add(Task(taskId, enteredText, 0, listId))
+                taskListAdapter.notifyDataSetChanged()
             }
         }
+
+        builder.setNegativeButton("CANCEL") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun loadTasksFromDatabase() {
+        taskList.clear()
+        val tasks = myDatabaseManager.getTasksByListId(listId)
+
+        taskList.addAll(tasks)
+
         taskListAdapter.notifyDataSetChanged()
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

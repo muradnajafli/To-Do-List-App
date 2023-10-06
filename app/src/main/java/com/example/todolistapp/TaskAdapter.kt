@@ -9,16 +9,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolistapp.databinding.TaskLayoutBinding
 
-class TaskAdapter(var context: Context,
-                  private var taskList: ArrayList<String>,
-                  private val listName: String?)
-    : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(
+    var context: Context,
+    private var taskList: ArrayList<Task>,
+    private var listId: Long,
+) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     inner class TaskViewHolder(var binding: TaskLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-
             binding.editButton.setOnClickListener {
                 val position = adapterPosition
                 editItem(position)
@@ -26,10 +26,8 @@ class TaskAdapter(var context: Context,
             binding.deleteButton.setOnClickListener {
                 val position = adapterPosition
                 deleteItem(position)
-
             }
         }
-
     }
 
     fun editItem(position: Int) {
@@ -41,15 +39,12 @@ class TaskAdapter(var context: Context,
         builder.setPositiveButton("UPDATE") { _, _ ->
             val updatedText = input.text.toString()
 
-            val sharedPreferences = context.getSharedPreferences("ToDoTask", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.remove("task_${listName}_$position")
+            val taskId = taskList[position].id
 
-            taskList[position] = updatedText
+            val myDatabaseManager = DatabaseManager(context)
+            myDatabaseManager.updateTask(taskId, updatedText, listId, taskList[position].isCompleted)
 
-            editor.putString("task_${listName}_$position", updatedText)
-            editor.apply()
-
+            taskList[position] = Task(taskId, updatedText, taskList[position].isCompleted, listId)
             notifyItemChanged(position)
         }
         builder.setNegativeButton("CANCEL") { dialog, _ ->
@@ -65,11 +60,8 @@ class TaskAdapter(var context: Context,
         builder.setTitle("Delete ToDo Task")
 
         builder.setPositiveButton("DELETE") { _, _ ->
-            val sharedPreferences = context.getSharedPreferences("ToDoTask", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-
-            editor.remove("task_${listName}_$position")
-            editor.apply()
+            val myDatabaseManager = DatabaseManager(context)
+            myDatabaseManager.deleteTask(taskList[position].taskName, listId)
 
             taskList.removeAt(position)
             notifyItemRemoved(position)
@@ -88,7 +80,6 @@ class TaskAdapter(var context: Context,
         return TaskViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
         val myHolder = holder.binding
@@ -101,28 +92,24 @@ class TaskAdapter(var context: Context,
         val checkedId = sharedPreferences.getInt(completedColorKey, R.color.black)
         val unCheckedId = sharedPreferences.getInt(notCompletedColorKey, R.color.black)
 
-        myHolder.checkBox.text = task
-
-        val itemIsChecked = sharedPreferences.getBoolean("isChecked_$position", false)
-        myHolder.checkBox.isChecked = itemIsChecked
-
+        myHolder.checkBox.text = task.taskName
+        myHolder.checkBox.isChecked = task.isCompleted == 1
         myHolder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("isChecked_$position", isChecked)
 
+            val myDatabaseManager = DatabaseManager(context)
+            val newIsCompleted = if (isChecked) 1 else 0
+            myDatabaseManager.updateTask(task.id, task.taskName, listId, newIsCompleted)
+
+            taskList[position] = Task(task.id, task.taskName, newIsCompleted, listId)
             val textColor = if (isChecked) {
-                editor.putInt(completedColorKey, checkedId)
                 ContextCompat.getColor(context, checkedId)
             } else {
-                editor.putInt(notCompletedColorKey, unCheckedId)
                 ContextCompat.getColor(context, unCheckedId)
             }
-            editor.apply()
-
             myHolder.checkBox.setTextColor(textColor)
         }
 
-        val textColor = if (itemIsChecked) {
+        val textColor = if (task.isCompleted == 1) {
             ContextCompat.getColor(context, checkedId)
         } else {
             ContextCompat.getColor(context, unCheckedId)
