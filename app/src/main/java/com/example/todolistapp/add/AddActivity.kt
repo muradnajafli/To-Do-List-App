@@ -13,7 +13,7 @@ import com.example.todolistapp.databinding.ActivityAddBinding
 
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
-    private lateinit var myDatabaseManager: DatabaseManager // Veritabanı yöneticisi
+    private lateinit var myDatabaseManager: DatabaseManager
     private lateinit var taskList: ArrayList<Task>
     private lateinit var taskListAdapter: TaskAdapter
     private var listId: Long = -1
