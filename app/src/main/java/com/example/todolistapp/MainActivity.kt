@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             val enteredText = input.text.toString()
 
             if (enteredText.isNotEmpty()) {
-                val newList = ToDoList(0, enteredText) // Yeni ToDoList oluştur
+                val newList = ToDoList(0, enteredText)
                 val listId = myDatabaseManager.addTodoList(newList)
                 myDatabaseManager.close()
 
