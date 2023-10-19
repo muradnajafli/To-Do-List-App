@@ -13,7 +13,7 @@ import com.example.todolistapp.database.DatabaseManager
 import com.example.todolistapp.databinding.TaskLayoutBinding
 
 class TaskAdapter(
-    var context: Context,
+    private var context: Context,
     private var taskList: ArrayList<Task>,
     private var listId: Long,
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
