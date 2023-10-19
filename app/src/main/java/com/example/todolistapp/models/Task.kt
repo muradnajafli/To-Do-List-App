@@ -1,4 +1,4 @@
-package com.example.todolistapp
+package com.example.todolistapp.models
 
 data class Task(
     val id: Long,

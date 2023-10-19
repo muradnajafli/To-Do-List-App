@@ -1,4 +1,4 @@
-package com.example.todolistapp
+package com.example.todolistapp.add
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todolistapp.models.Task
+import com.example.todolistapp.database.DatabaseManager
 import com.example.todolistapp.databinding.ActivityAddBinding
 
 class AddActivity : AppCompatActivity() {
