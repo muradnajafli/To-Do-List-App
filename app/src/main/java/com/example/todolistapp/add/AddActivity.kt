@@ -18,6 +18,7 @@ class AddActivity : AppCompatActivity() {
     private lateinit var taskListAdapter: TaskAdapter
     private var listId: Long = -1
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
@@ -36,22 +37,7 @@ class AddActivity : AppCompatActivity() {
         binding.taskRecyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.addButton.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Add ToDo Item")
-
-            val input = EditText(this)
-            builder.setView(input)
-
-            builder.setPositiveButton("ADD") { _, _ ->
-                showAddTaskDialog()
-            }
-
-            builder.setNegativeButton("CANCEL") { dialog, _ ->
-                dialog.cancel()
-            }
-
-            val dialog = builder.create()
-            dialog.show()
+            showAddTaskDialog()
         }
 
         loadTasksFromDatabase()
