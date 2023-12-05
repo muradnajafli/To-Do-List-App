@@ -1,4 +1,4 @@
-package com.example.todolistapp.add
+package com.example.todolistapp.presentation.add
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolistapp.R
-import com.example.todolistapp.models.Task
-import com.example.todolistapp.database.DatabaseManager
+import com.example.todolistapp.data.model.Task
+import com.example.todolistapp.data.database.DatabaseManager
 import com.example.todolistapp.databinding.TaskLayoutBinding
 
 class TaskAdapter(

@@ -1,11 +1,11 @@
-package com.example.todolistapp.database
+package com.example.todolistapp.data.database
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.example.todolistapp.models.Task
-import com.example.todolistapp.models.ToDoList
+import com.example.todolistapp.data.model.Task
+import com.example.todolistapp.data.model.ToDoList
 
 class DatabaseManager(context: Context) {
 

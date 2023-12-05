@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,11 +17,11 @@
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".add.AddActivity"
+            android:name=".presentation.add.AddActivity"
             android:exported="false"
-            android:parentActivityName=".main.MainActivity" />
+            android:parentActivityName=".presentation.main.MainActivity" />
         <activity
-            android:name=".main.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

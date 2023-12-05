@@ -1,4 +1,4 @@
-package com.example.todolistapp.main
+package com.example.todolistapp.presentation.main
 
 import android.content.Context
 import android.content.Intent
@@ -8,18 +8,21 @@ import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolistapp.add.AddActivity
+import com.example.todolistapp.presentation.add.AddActivity
 import com.example.todolistapp.R
-import com.example.todolistapp.models.ToDoList
-import com.example.todolistapp.database.DatabaseManager
+import com.example.todolistapp.data.model.ToDoList
+import com.example.todolistapp.data.database.DatabaseManager
 import com.example.todolistapp.databinding.ListLayoutBinding
+import javax.inject.Inject
 
-class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<ToDoList>) :
-    RecyclerView.Adapter<ToDoListAdapter.ListViewHolder>() {
+class ToDoListAdapter(var context: Context, var toDoList: ArrayList<ToDoList>) : RecyclerView.Adapter<ToDoListAdapter.ListViewHolder>() {
+
+    @Inject lateinit var myDatabaseManager: DatabaseManager
+
     inner class ListViewHolder(var binding: ListLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            val dropDownMenu = PopupMenu(context, binding.listOptionsButton)
+            val dropDownMenu = PopupMenu(binding.root.context, binding.listOptionsButton)
             dropDownMenu.inflate(R.menu.list_options_menu)
             dropDownMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
@@ -57,8 +60,6 @@ class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<ToDo
             val updatedText = input.text.toString()
             val listId = toDoList[position].id
 
-            // Update the list title in the database
-            val myDatabaseManager = DatabaseManager(context)
             myDatabaseManager.updateList(listId, updatedText)
 
             toDoList[position].title = updatedText
@@ -79,7 +80,6 @@ class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<ToDo
         builder.setPositiveButton("DELETE") { _, _ ->
             val listId = toDoList[position].id
 
-            val myDatabaseManager = DatabaseManager(context)
             myDatabaseManager.deleteListWithTasks(listId)
 
             toDoList.removeAt(position)
@@ -93,7 +93,7 @@ class ToDoListAdapter(var context: Context, private var toDoList: ArrayList<ToDo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding = ListLayoutBinding.inflate(LayoutInflater.from(context), parent, false)
+        val binding = ListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
     }
 

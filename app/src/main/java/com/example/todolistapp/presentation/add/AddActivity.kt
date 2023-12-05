@@ -1,19 +1,23 @@
-package com.example.todolistapp.add
+package com.example.todolistapp.presentation.add
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.EditText
+import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todolistapp.models.Task
-import com.example.todolistapp.database.DatabaseManager
+import com.example.todolistapp.data.model.Task
+import com.example.todolistapp.data.database.DatabaseManager
 import com.example.todolistapp.databinding.ActivityAddBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
-    private lateinit var myDatabaseManager: DatabaseManager
+    @Inject lateinit var myDatabaseManager: DatabaseManager
     private lateinit var taskList: ArrayList<Task>
     private lateinit var taskListAdapter: TaskAdapter
     private var listId: Long = -1
@@ -28,8 +32,6 @@ class AddActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         listId = intent.getLongExtra("listId", -1)
-        myDatabaseManager = DatabaseManager(this)
-
         taskList = ArrayList()
         taskListAdapter = TaskAdapter(this, taskList, listId)
 
@@ -84,7 +86,7 @@ class AddActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)

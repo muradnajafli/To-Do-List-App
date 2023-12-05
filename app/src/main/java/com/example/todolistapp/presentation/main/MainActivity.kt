@@ -1,4 +1,4 @@
-package com.example.todolistapp.main
+package com.example.todolistapp.presentation.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,13 +9,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolistapp.SettingsActivity
-import com.example.todolistapp.models.ToDoList
-import com.example.todolistapp.database.DatabaseManager
+import com.example.todolistapp.data.model.ToDoList
+import com.example.todolistapp.data.database.DatabaseManager
 import com.example.todolistapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var myDatabaseManager: DatabaseManager
+    @Inject lateinit var myDatabaseManager: DatabaseManager
     private lateinit var toDoList: ArrayList<ToDoList>
     private lateinit var toDoListAdapter: ToDoListAdapter
 
@@ -25,23 +28,35 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        myDatabaseManager = DatabaseManager(this)
-
         toDoList = ArrayList()
-        toDoListAdapter = ToDoListAdapter(this, toDoList)
 
-        binding.recyclerView.adapter = toDoListAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-
-        binding.settingsButton.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
+        setUpRecyclerView()
+        setUpSettingsButton()
+        setUpAddButton()
 
         binding.addButton.setOnClickListener {
             showAddListDialog()
         }
 
         loadListsFromDatabase()
+    }
+
+    private fun setUpRecyclerView() {
+        toDoListAdapter = ToDoListAdapter(this, toDoList)
+        binding.recyclerView.adapter = toDoListAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun setUpSettingsButton() {
+        binding.settingsButton.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+
+    private fun setUpAddButton() {
+        binding.addButton.setOnClickListener {
+            showAddListDialog()
+        }
     }
 
     private fun showAddListDialog() {
