@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.muradnajafli.todolistapp.data.model.Task
 import com.muradnajafli.todolistapp.data.database.DatabaseManager
-import com.muradnajafli.todolistapp.data.utils.SharedPreferenceDelegate
+import com.muradnajafli.todolistapp.data.utils.sharedPreferences
 import com.muradnajafli.todolistapp.databinding.TaskLayoutBinding
 
 class TaskAdapter(
@@ -18,8 +18,8 @@ class TaskAdapter(
     private var listId: Long,
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    private val completedColor by SharedPreferenceDelegate(context, "completedColor")
-    private val notCompletedColor by SharedPreferenceDelegate(context, "notCompletedColor")
+    private val completedColor by context.sharedPreferences("completedColor")
+    private val notCompletedColor by context.sharedPreferences("notCompletedColor")
 
     inner class TaskViewHolder(var binding: TaskLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
