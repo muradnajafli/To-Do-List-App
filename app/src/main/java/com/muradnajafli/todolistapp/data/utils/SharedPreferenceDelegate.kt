@@ -2,7 +2,6 @@ package com.muradnajafli.todolistapp.data.utils
 
 
 import android.content.Context
-import android.content.SharedPreferences
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
