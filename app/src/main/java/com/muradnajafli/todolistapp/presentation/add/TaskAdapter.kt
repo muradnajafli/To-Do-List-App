@@ -15,7 +15,7 @@ import com.muradnajafli.todolistapp.databinding.TaskLayoutBinding
 class TaskAdapter(
     private var context: Context,
     private var taskList: ArrayList<Task>,
-    private var listId: Long,
+    private var listId: Long
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val completedColor by context.sharedPreferences("completedColor")
