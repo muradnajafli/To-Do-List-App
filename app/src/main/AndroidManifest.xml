@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.muradnajafli.todolistapp.App"
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,14 +14,14 @@
         android:theme="@style/Theme.ToDoListApp"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".presentation.settings.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.add.AddActivity"
+            android:name=".presentation.task.TaskActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.main.MainActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

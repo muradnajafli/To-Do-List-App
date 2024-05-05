@@ -1,4 +1,4 @@
-package com.muradnajafli.todolistapp.data.utils
+package com.muradnajafli.todolistapp.utils
 
 
 import android.content.Context
@@ -12,7 +12,7 @@ class SharedPreferenceDelegate(
 ): ReadWriteProperty<Any, Int> {
 
     private val sharedPreferences by lazy {
-        context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        context.getSharedPreferences(Constants.SETTINGS_PREFERENCE_KEY, Context.MODE_PRIVATE)
     }
 
     override fun getValue(thisRef: Any, property: KProperty<*>): Int {

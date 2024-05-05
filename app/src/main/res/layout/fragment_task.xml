@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.add.AddActivity">
+    tools:context=".presentation.task.TaskFragment">
 
     <androidx.appcompat.widget.Toolbar
         app:titleTextColor="#FFFFFF"
@@ -37,6 +37,8 @@
         android:id="@+id/taskRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
