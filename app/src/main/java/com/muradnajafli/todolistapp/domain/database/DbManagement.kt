@@ -1,6 +1,5 @@
 package com.muradnajafli.todolistapp.domain.database
 
-import android.content.ContentValues
 import com.muradnajafli.todolistapp.domain.model.Task
 import com.muradnajafli.todolistapp.domain.model.Todo
 import kotlinx.coroutines.flow.Flow
