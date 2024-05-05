@@ -13,8 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.muradnajafli.todolistapp.R
 import com.muradnajafli.todolistapp.domain.model.Task
 import com.muradnajafli.todolistapp.databinding.FragmentTaskBinding
-import com.muradnajafli.todolistapp.utils.Constants
-import com.muradnajafli.todolistapp.utils.sharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

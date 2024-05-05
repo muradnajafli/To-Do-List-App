@@ -6,7 +6,6 @@ import com.muradnajafli.todolistapp.domain.usecase.settings.GetCompletedColorUse
 import com.muradnajafli.todolistapp.domain.usecase.settings.GetUncompletedColorUseCase
 import com.muradnajafli.todolistapp.domain.usecase.settings.SetCompletedColorUseCase
 import com.muradnajafli.todolistapp.domain.usecase.settings.SetUncompletedColorUseCase
-import com.muradnajafli.todolistapp.utils.ColorManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

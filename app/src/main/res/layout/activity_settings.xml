@@ -21,21 +21,21 @@
             android:id="@+id/blueRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Blue"
+            android:text="@string/blue"
             android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/yellowRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Yellow"
+            android:text="@string/yellow"
             android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/greenRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Green"
+            android:text="@string/green"
             android:textSize="16sp" />
     </RadioGroup>
 
@@ -45,18 +45,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
-        android:text="Completed color"
+        android:text="@string/completed_color"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/notCompletedText"
+        android:id="@+id/uncompletedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:text="Not completed color"
+        android:text="@string/uncompleted_color"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completedText" />
@@ -67,25 +67,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/notCompletedText"
+        app:layout_constraintStart_toEndOf="@+id/uncompletedText"
         app:layout_constraintTop_toBottomOf="@+id/completedColorRadioGroup">
 
         <RadioButton
             android:id="@+id/brownRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Brown" />
+            android:text="@string/brown" />
 
         <RadioButton
             android:id="@+id/pinkRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pink" />
+            android:text="@string/pink" />
 
         <RadioButton
             android:id="@+id/violetRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Violet" />
+            android:text="@string/violet" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

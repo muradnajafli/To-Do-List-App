@@ -7,10 +7,20 @@
     <string name="open_settings">OPEN SETTINGS</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">Cancel</string>
     <string name="update_todo_task">Update ToDo Task</string>
     <string name="update">UPDATE</string>
     <string name="delete_todo_task">Delete ToDo Task</string>
     <string name="add">ADD</string>
     <string name="add_todo_item">Add ToDo Item</string>
+    <string name="blue">Blue</string>
+    <string name="yellow">Yellow</string>
+    <string name="green">Green</string>
+    <string name="completed_color">Completed color</string>
+    <string name="uncompleted_color">Uncompleted color</string>
+    <string name="brown">Brown</string>
+    <string name="pink">Pink</string>
+    <string name="violet">Violet</string>
+    <string name="edit_button_description">edit_button</string>
+    <string name="delete_button_description">delete_button</string>
 </resources>

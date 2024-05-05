@@ -17,10 +17,6 @@
             android:name=".presentation.settings.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.task.TaskActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
