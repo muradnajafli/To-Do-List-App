@@ -1,6 +1,5 @@
 package com.muradnajafli.todolistapp.presentation.todo
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.muradnajafli.todolistapp.R
-import com.muradnajafli.todolistapp.presentation.settings.SettingsFragment
 import com.muradnajafli.todolistapp.domain.model.Todo
 import com.muradnajafli.todolistapp.databinding.FragmentTodoBinding
 import com.muradnajafli.todolistapp.presentation.todo.adapter.TodoAdapter
