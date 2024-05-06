@@ -1,4 +1,4 @@
-package com.muradnajafli.todolistapp.presentation.todo
+package com.muradnajafli.todolistapp.presentation.todo.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,12 +18,13 @@ class TodoViewHolder(
         onEditClicked: ((Todo) -> Unit)?,
         onNavigateToTaskFragment: ((Long) -> Unit)?,
     ) {
-        binding.toDoListTv.text = todo.title
-        binding.listOptionsButton.setOnClickListener {
-            showPopupMenu(todo, onDeleteClicked, onEditClicked)
+        binding.apply {
+            toDoListTv.text = todo.title
+            listOptionsButton.setOnClickListener {
+                showPopupMenu(todo, onDeleteClicked, onEditClicked)
+            }
+            root.setOnClickListener { onNavigateToTaskFragment?.invoke(todo.id) }
         }
-        binding.root.setOnClickListener { onNavigateToTaskFragment?.invoke(todo.id) }
-
     }
 
     private fun showPopupMenu(

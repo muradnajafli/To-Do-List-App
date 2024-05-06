@@ -11,10 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.muradnajafli.todolistapp.R
-import com.muradnajafli.todolistapp.presentation.settings.SettingsActivity
+import com.muradnajafli.todolistapp.presentation.settings.SettingsFragment
 import com.muradnajafli.todolistapp.domain.model.Todo
 import com.muradnajafli.todolistapp.databinding.FragmentTodoBinding
+import com.muradnajafli.todolistapp.presentation.todo.adapter.TodoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -56,11 +59,20 @@ class TodoFragment : Fragment() {
             }
         )
         binding.recyclerView.adapter = todoAdapter
+        binding.recyclerView.setHasFixedSize(true)
+        val dividerItemDecoration = MaterialDividerItemDecoration(
+            requireContext(),
+            DividerItemDecoration.VERTICAL
+        ).apply {
+            isLastItemDecorated = false
+            setDividerColorResource(requireContext(), R.color.white)
+        }
+        binding.recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     private fun setUpSettingsButton() {
         binding.settingsButton.setOnClickListener {
-            startActivity(Intent(requireContext(), SettingsActivity::class.java))
+            findNavController().navigate(R.id.action_todoFragment_to_settingsFragment)
         }
     }
 

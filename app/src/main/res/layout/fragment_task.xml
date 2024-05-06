@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gunmetal_gray"
     tools:context=".presentation.task.TaskFragment">
 
     <androidx.appcompat.widget.Toolbar
-        app:titleTextColor="#FFFFFF"
+        app:titleTextColor="@color/white"
         tools:title="New List"
+        android:background="@color/midnight_blue"
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,6 +28,8 @@
         android:clickable="true"
         android:contentDescription="@string/add_item"
         android:focusable="true"
+        app:tint="@color/black"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"

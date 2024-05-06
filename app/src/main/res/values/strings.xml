@@ -1,15 +1,13 @@
 <resources>
     <string name="app_name">ToDo List App</string>
     <string name="add_item">Add item</string>
-    <string name="list_options">list_options</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo_options">todo_options</string>
     <string name="open_settings">OPEN SETTINGS</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
     <string name="update_todo_task">Update ToDo Task</string>
-    <string name="update">UPDATE</string>
+    <string name="update">Update</string>
     <string name="delete_todo_task">Delete ToDo Task</string>
     <string name="add">ADD</string>
     <string name="add_todo_item">Add ToDo Item</string>

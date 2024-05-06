@@ -1,4 +1,4 @@
-package com.muradnajafli.todolistapp.presentation.todo
+package com.muradnajafli.todolistapp.presentation.todo.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.muradnajafli.todolistapp.domain.model.Todo

@@ -1,4 +1,4 @@
-package com.muradnajafli.todolistapp.presentation.task
+package com.muradnajafli.todolistapp.presentation.task.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

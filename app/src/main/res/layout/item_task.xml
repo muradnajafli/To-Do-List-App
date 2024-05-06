@@ -8,31 +8,33 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="40dp"
-        android:layout_marginTop="8dp">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/black"
             android:padding="12dp">
-
 
             <CheckBox
                 android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Task"
+                android:textColor="@color/white"
+                android:includeFontPadding="true"
+                android:textSize="18sp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.666" />
+                tools:text="Task" />
 
             <ImageView
                 android:id="@+id/editButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                app:tint="@color/white"
                 android:contentDescription="@string/edit_button_description"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/deleteButton"
@@ -45,6 +47,7 @@
                 android:id="@+id/deleteButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                app:tint="@color/white"
                 android:contentDescription="@string/delete_button_description"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

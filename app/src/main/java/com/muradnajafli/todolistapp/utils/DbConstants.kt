@@ -2,7 +2,7 @@ package com.muradnajafli.todolistapp.utils
 
 object DbConstants {
     const val DATABASE_NAME = "todoapp.db"
-    const val DATABASE_VERSION = 5
+    const val DATABASE_VERSION = 1
 
     const val TODO_TABLE_NAME = "todo_table"
     const val TASK_TABLE_NAME = "task_table"

@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212129"
+    android:background="@color/gunmetal_gray"
     tools:context=".presentation.todo.TodoFragment">
 
     <Button
         android:id="@+id/settingsButton"
-        android:backgroundTint="#4c5265"
+        android:backgroundTint="@color/stale_gray"
         android:layout_width="0dp"
         android:layout_height="75dp"
         android:text="@string/open_settings"
@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:clickable="true"
+        app:tint="@color/black"
+        android:backgroundTint="@color/white"
         android:contentDescription="@string/add_item"
         android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/settingsButton"
@@ -35,7 +37,7 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#323949"
+        android:background="@color/midnight_blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Dashboard"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

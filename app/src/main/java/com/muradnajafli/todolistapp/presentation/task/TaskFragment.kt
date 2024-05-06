@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.muradnajafli.todolistapp.R
 import com.muradnajafli.todolistapp.domain.model.Task
 import com.muradnajafli.todolistapp.databinding.FragmentTaskBinding
+import com.muradnajafli.todolistapp.presentation.task.adapter.TaskAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -21,9 +23,8 @@ import kotlinx.coroutines.launch
 class TaskFragment : Fragment() {
     private var _binding: FragmentTaskBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var taskAdapter: TaskAdapter
     private val taskViewModel: TaskViewModel by viewModels()
+    private lateinit var taskAdapter: TaskAdapter
     private val args: TaskFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -60,6 +61,15 @@ class TaskFragment : Fragment() {
             }
         )
         binding.taskRecyclerView.adapter = taskAdapter
+        binding.taskRecyclerView.setHasFixedSize(true)
+        val dividerItemDecoration = MaterialDividerItemDecoration(
+            requireContext(),
+            DividerItemDecoration.VERTICAL,
+        ).apply {
+            isLastItemDecorated = false
+            setDividerColorResource(requireContext(), R.color.white)
+        }
+        binding.taskRecyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     private fun setOnClickListeners() {

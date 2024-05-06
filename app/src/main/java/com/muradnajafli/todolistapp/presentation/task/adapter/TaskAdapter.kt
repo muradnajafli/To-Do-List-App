@@ -1,4 +1,4 @@
-package com.muradnajafli.todolistapp.presentation.task
+package com.muradnajafli.todolistapp.presentation.task.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

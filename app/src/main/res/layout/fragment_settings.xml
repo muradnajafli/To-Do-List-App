@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.settings.SettingsActivity">
+    android:background="@color/gunmetal_gray"
+    tools:context=".presentation.settings.SettingsFragment">
 
     <RadioGroup
         android:id="@+id/completedColorRadioGroup"
@@ -19,23 +20,29 @@
 
         <RadioButton
             android:id="@+id/blueRadioButton"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/blue"
+            android:paddingHorizontal="4dp"
             android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/yellowRadioButton"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/yellow"
+            android:paddingHorizontal="4dp"
             android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/greenRadioButton"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/green"
+            android:paddingHorizontal="4dp"
             android:textSize="16sp" />
     </RadioGroup>
 
@@ -43,9 +50,11 @@
         android:id="@+id/completedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:text="@string/completed_color"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -56,6 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:text="@string/uncompleted_color"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,20 +83,29 @@
 
         <RadioButton
             android:id="@+id/brownRadioButton"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingHorizontal="4dp"
             android:text="@string/brown" />
 
         <RadioButton
             android:id="@+id/pinkRadioButton"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="4dp"
+            android:textSize="16sp"
             android:text="@string/pink" />
 
         <RadioButton
             android:id="@+id/violetRadioButton"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="4dp"
             android:text="@string/violet" />
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
