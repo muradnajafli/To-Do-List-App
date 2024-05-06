@@ -46,10 +46,10 @@ class TodoFragment : Fragment() {
     private fun setUpRecyclerView() {
         todoAdapter = TodoAdapter(
             onDeleteClicked = { todo ->
-                deleteList(todo)
+                deleteTodo(todo)
             },
             onEditClicked = { todo ->
-                editList(todo)
+                editTodo(todo)
             },
             onNavigateToTaskFragment = { todoId ->
                 navigateToTaskFragment(todoId)
@@ -72,7 +72,7 @@ class TodoFragment : Fragment() {
 
     private fun showAddListDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Add ToDo List")
+        builder.setTitle(getString(R.string.add_todo))
 
         val input = EditText(requireContext())
         builder.setView(input)
@@ -85,7 +85,7 @@ class TodoFragment : Fragment() {
             }
         }
 
-        builder.setNegativeButton("CANCEL") { dialog, _ ->
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
             dialog.cancel()
         }
 
@@ -93,17 +93,17 @@ class TodoFragment : Fragment() {
         dialog.show()
     }
 
-    private fun editList(todo: Todo) {
+    private fun editTodo(todo: Todo) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Update ToDo")
+        builder.setTitle(getString(R.string.update_todo))
         val input = EditText(requireContext())
         builder.setView(input)
 
-        builder.setPositiveButton("UPDATE") { _, _ ->
+        builder.setPositiveButton(getString(R.string.update)) { _, _ ->
             val updatedText = input.text.toString()
             todoViewModel.updateTodo(todo.copy(title = updatedText))
         }
-        builder.setNegativeButton("CANCEL") { dialog, _ ->
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
             dialog.cancel()
         }
 
@@ -111,7 +111,7 @@ class TodoFragment : Fragment() {
         dialog.show()
     }
 
-    private fun deleteList(todo: Todo) {
+    private fun deleteTodo(todo: Todo) {
         todoViewModel.deleteTodoById(todo)
     }
 
@@ -124,13 +124,19 @@ class TodoFragment : Fragment() {
     }
 
     private fun navigateToTaskFragment(todoId: Long) {
+        val todoTitle = getTitleById(todoId)
         findNavController().navigate(
-            TodoFragmentDirections.actionTodoFragmentToTaskFragment(todoId)
+            TodoFragmentDirections.actionTodoFragmentToTaskFragment(todoId, todoTitle)
         )
+    }
+
+    private fun getTitleById(id: Long): String {
+        return todoViewModel.getTitleById(id)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

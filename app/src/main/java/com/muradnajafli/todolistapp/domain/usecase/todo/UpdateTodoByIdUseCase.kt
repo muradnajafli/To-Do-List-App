@@ -12,6 +12,7 @@ class UpdateTodoByIdUseCaseImpl @Inject constructor(
     }
 
 }
+
 interface UpdateTodoByIdUseCase {
     operator fun invoke(todoId: Long, title: String)
 }

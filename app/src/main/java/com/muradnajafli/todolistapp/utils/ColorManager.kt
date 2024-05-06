@@ -28,4 +28,5 @@ class ColorManager @Inject constructor(
     fun saveUncompletedColorToSharedPreferences(color: Int) {
         uncompletedColorPreference = color
     }
+
 }

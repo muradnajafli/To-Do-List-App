@@ -1,8 +1,8 @@
 package com.muradnajafli.todolistapp.presentation.settings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.muradnajafli.todolistapp.R
 import com.muradnajafli.todolistapp.databinding.ActivitySettingsBinding

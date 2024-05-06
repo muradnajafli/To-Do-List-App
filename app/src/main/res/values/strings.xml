@@ -23,4 +23,6 @@
     <string name="violet">Violet</string>
     <string name="edit_button_description">edit_button</string>
     <string name="delete_button_description">delete_button</string>
+    <string name="add_todo">Add ToDo</string>
+    <string name="update_todo">Update ToDo</string>
 </resources>

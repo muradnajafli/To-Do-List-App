@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -35,10 +36,15 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpToolbarTitle()
         setUpRecyclerView()
         observeViewModel()
         setOnClickListeners()
         taskViewModel.getTasks(args.listId)
+    }
+
+    private fun setUpToolbarTitle() {
+        binding.toolbar.title = args.todoName
     }
 
     private fun setUpRecyclerView() {

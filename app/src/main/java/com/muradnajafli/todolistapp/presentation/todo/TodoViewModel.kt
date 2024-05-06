@@ -56,4 +56,8 @@ class TodoViewModel @Inject constructor(
             getTodos()
         }
     }
+
+    fun getTitleById(id: Long): String {
+        return _todos.value.find { it.id == id }?.title ?: ""
+    }
 }

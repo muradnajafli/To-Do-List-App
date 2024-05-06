@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#212129"
     tools:context=".presentation.todo.TodoFragment">
 
     <Button
         android:id="@+id/settingsButton"
-        style="@style/Widget.AppCompat.Button"
+        android:backgroundTint="#4c5265"
         android:layout_width="0dp"
-        android:layout_height="73dp"
+        android:layout_height="75dp"
         android:text="@string/open_settings"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +35,7 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="#323949"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"

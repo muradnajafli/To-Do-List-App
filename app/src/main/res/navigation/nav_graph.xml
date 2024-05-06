@@ -13,6 +13,9 @@
         <argument
             android:name="listId"
             app:argType="long" />
+        <argument
+            android:name="todoName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/todoFragment"

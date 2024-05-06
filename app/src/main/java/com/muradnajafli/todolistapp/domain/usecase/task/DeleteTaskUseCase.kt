@@ -11,6 +11,7 @@ class DeleteTaskUseCaseImpl @Inject constructor(
         taskRepository.deleteTaskById(taskId)
     }
 }
+
 interface DeleteTaskUseCase {
     operator fun invoke(taskId: Long)
 }

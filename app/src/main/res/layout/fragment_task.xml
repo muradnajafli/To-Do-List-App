@@ -8,7 +8,7 @@
 
     <androidx.appcompat.widget.Toolbar
         app:titleTextColor="#FFFFFF"
-        app:title="New List"
+        tools:title="New List"
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

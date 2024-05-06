@@ -10,6 +10,7 @@ class GetCompletedColorUseCaseImpl(
     override operator fun invoke() = colorManager.getCompletedColor()
 
 }
+
 interface GetCompletedColorUseCase {
 
     operator fun invoke(): Int

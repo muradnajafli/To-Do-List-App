@@ -9,11 +9,11 @@ import javax.inject.Inject
 class GetTasksUseCaseImpl @Inject constructor(
     private val taskRepository: TaskRepository
 ) : GetTasksUseCase {
-    override fun invoke(listId: Long): Flow<List<Task>> {
-        return taskRepository.getTasks(listId)
+    override fun invoke(todoId: Long): Flow<List<Task>> {
+        return taskRepository.getTasks(todoId)
     }
 }
 
 interface GetTasksUseCase {
-    operator fun invoke(listId: Long): Flow<List<Task>>
+    operator fun invoke(todoId: Long): Flow<List<Task>>
 }
